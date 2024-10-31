@@ -1,16 +1,22 @@
-﻿using DSCC.CW1._13626.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using DSCC.CW1._13626.Model;
 
 namespace DSCC.CW1._13626.DbContexts
 {
-    public class OrderDbContext:DbContext
+    public class OrderDbContext : DbContext
     {
-       
-            public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
+        public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
+        public DbSet<Customer> Customer { get; set; } 
+        public DbSet<Order> Orders { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-            public DbSet<Customer> Customers { get; set; }
-            public DbSet<Order> Orders { get; set; }
-        
+            modelBuilder.Entity<Customer>()
+                .HasMany(c => c.Orders)
+                .WithOne(o => o.Customer)
+                .HasForeignKey(o => o.CustomerId);
+        }
     }
 }

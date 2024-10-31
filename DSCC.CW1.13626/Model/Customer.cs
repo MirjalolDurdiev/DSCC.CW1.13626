@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DSCC.CW1._13626.Model
 {
@@ -16,11 +17,11 @@ namespace DSCC.CW1._13626.Model
         public string Email { get; set; }
 
         [Phone]
+        [StringLength(100)]
         public string PhoneNumber { get; set; }
 
-        public ICollection<Order> Orders
-        {
-            get; set;
-        }
+        [JsonIgnore]
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
+
     }
 }

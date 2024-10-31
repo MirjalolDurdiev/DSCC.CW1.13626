@@ -7,6 +7,7 @@ namespace DSCC.CW1._13626.Model
     {
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderId { get; set; }
 
         [Required]
@@ -16,18 +17,10 @@ namespace DSCC.CW1._13626.Model
         public decimal Amount { get; set; }
 
         [Required]
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
 
 
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-    }
-    public enum OrderStatus
-    {
-        Pending,
-        Processing,
-        Shipped,
-        Delivered,
-        Cancelled
+        public Customer? Customer { get; set; }
     }
 }
